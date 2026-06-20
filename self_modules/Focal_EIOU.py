@@ -49,7 +49,7 @@ def my_bbox_iou(box1, box2, xywh=False, GIoU=False, DIoU=False, CIoU=False, eps=
 
 # 2. 编写激活补丁的函数
 def apply_focal_eiou_patch():
-    import ultralytics.utils.metrics as metrics
+    import ultralytics.utils as metrics
     import ultralytics.utils.loss as loss_module
 
     metrics.bbox_iou = my_bbox_iou
