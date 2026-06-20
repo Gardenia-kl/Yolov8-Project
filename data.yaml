@@ -1,0 +1,30 @@
+# 1. 路径配置 (强烈建议初学者使用绝对路径，不容易报错)
+# 例如你的 yolo_dataset 放在了 E盘下
+path: E:\ultralytics-main\yolo_dataset  # 数据集的根目录绝对路径
+
+# 相对路径写法（相对于 path 指定的目录）
+train: images/train  # 训练集图片的相对路径
+val: images/val      # 验证集图片的相对路径
+test: images/test    # 测试集图片的相对路径 (可选)
+
+# 2. 类别配置
+nc: 15 # number of classes, 你的总类别数量
+
+# 类别名称列表 (这里的顺序必须和你的 classes.txt 里的顺序一模一样！)
+# 比如 classes.txt 第一行是 defect, 第二行是 normal
+names: 
+  0: zexie
+  1: niuxi
+  2: gaoliangjiang
+  3: mudanpi
+  4: yuzhu
+  5: baizhi
+  6: baishao
+  7: dazao
+  8: danshen
+  9: gancao
+  10: baixianpi
+  11: baihe
+  12: sangzhi
+  13: jiegeng
+  14: banlangen
