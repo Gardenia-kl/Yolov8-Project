@@ -1,4 +1,5 @@
 # yolov8-ghost-ca.yaml
+nc: 15
 scales:
   n: [0.33, 0.25, 1024] # 以 YOLOv8n 为基础，适配树莓派5
 

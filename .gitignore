@@ -3,6 +3,7 @@
 
 # 忽略本地庞大的数据集文件夹
 yolo_dataset/
+yolo_dataset/dataset.zip/
 
 # 忽略根目录下的日志文件夹 (注意：直接写 runs/ 即可)
 runs/

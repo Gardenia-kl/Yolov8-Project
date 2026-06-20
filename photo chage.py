@@ -4,8 +4,8 @@ import shutil
 import cv2
 import albumentations as A
 
-RAW_IMG_DIR = r"E:\ultralytics-main\ultralytics-main\images" # 你的原始图片存放路径
-RAW_LABEL_DIR = r"E:\ultralytics-main\ultralytics-main\labels" # 你的原始标注txt存放路径
+RAW_IMG_DIR = r"E:\ultralytics-main\images" # 你的原始图片存放路径
+RAW_LABEL_DIR = r"E:\ultralytics-main\labels" # 你的原始标注txt存放路径
 OUTPUT_DIR = "yolo_dataset"  # 最终生成的标准数据集根目录
 
 # 划分比例 (训练集 : 验证集 : 测试集) 两者之和需为 1.0
