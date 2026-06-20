@@ -1,8 +1,14 @@
 import sys
 import os
+sys.path.append(r"E:\ultralytics-main\self_modules")
+sys.path.append(r"E:\ultralytics-main\ultralytics-main\ultralytics")
+
+from self_modules.Focal_EIOU import apply_focal_eiou_patch
+apply_focal_eiou_patch()
+
 from ultralytics import YOLO
 
-sys.path.append(os.path.abspath(os.path.join(os.getcwd(), '.')))
+
 
 def main():
 
@@ -19,7 +25,8 @@ def main():
         batch=-1,
         workers=2,
 
-
+        fl_gamma=1.5,
+        mixup=0.15,
         # --- 基础优化策略 ---
         optimizer='AdamW',  # 轻量化模型推荐的优化器
         lr0=0.001,  # 初始学习率
