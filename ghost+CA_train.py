@@ -24,7 +24,7 @@ def main():
         imgsz=416,
         batch=-1,
         workers=3,
-
+        device=0,
         mixup=0.15,
         # --- 基础优化策略 ---
         optimizer='AdamW',  # 轻量化模型推荐的优化器
