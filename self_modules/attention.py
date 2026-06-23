@@ -1,6 +1,7 @@
-# custom_modules/coord_attention.py
 import torch
 import torch.nn as nn
+from ultralytics.nn.modules.block import C2f, Bottleneck
+
 
 class h_sigmoid(nn.Module):
     def __init__(self, inplace=True):
@@ -10,6 +11,7 @@ class h_sigmoid(nn.Module):
     def forward(self, x):
         return self.relu(x + 3) / 6
 
+
 class h_swish(nn.Module):
     def __init__(self, inplace=True):
         super(h_swish, self).__init__()
@@ -18,11 +20,13 @@ class h_swish(nn.Module):
     def forward(self, x):
         return x * self.sigmoid(x)
 
+
 class CoordAtt(nn.Module):
     """
-    Coordinate Attention 模块
+    Coordinate Attention 核心模块
     作用: 强化中草药饮片的纹理、轮廓特征提取，抑制复杂背景干扰。
     """
+
     def __init__(self, c1, c2, reduction=32):
         super(CoordAtt, self).__init__()
         self.pool_h = nn.AdaptiveAvgPool2d((None, 1))
@@ -56,3 +60,21 @@ class CoordAtt(nn.Module):
 
         out = identity * a_w * a_h
         return out
+
+
+class C2f_CA(C2f):
+
+    def __init__(self, c1, c2, n=1, shortcut=False, g=1, e=0.5):
+        # 初始化父类 C2f
+        super().__init__(c1, c2, n, shortcut, g, e)
+        # 在 C2f 的末尾加上你写的 CoordAtt
+        self.ca = CoordAtt(c2, c2)
+
+    def forward(self, x):
+        # 这里的逻辑和原生 C2f 一样，将特征在 chunk 后喂入 Bottleneck
+        y = list(self.cv1(x).chunk(2, 1))
+        y.extend(m(y[-1]) for m in self.m)
+        out = self.cv2(torch.cat(y, 1))
+
+        # 核心：在最终输出前，经过你的 Coordinate Attention
+        return self.ca(out)

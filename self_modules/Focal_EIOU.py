@@ -35,9 +35,11 @@ def my_bbox_iou(box1, box2, xywh=False, GIoU=False, DIoU=False, CIoU=False, eps=
             ch2 = ch ** 2 + eps
             eiou = iou - (rho2 / c2 + rho_w2 / cw2 + rho_h2 / ch2)
 
-
             eiou_loss = 1.0 - eiou
-            focal_weight = iou.detach() ** focal_gamma
+
+            # 防止随机初始化的框因为 IoU 为 0 导致权重为 0，从而失去梯度
+            focal_weight = (iou.detach().clamp(min=0.1)) ** focal_gamma
+
             focal_eiou_loss = focal_weight * eiou_loss
 
             return 1.0 - focal_eiou_loss

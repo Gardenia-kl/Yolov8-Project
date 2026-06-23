@@ -20,7 +20,7 @@ def main():
     # 3. 启动训练
     results = model.train(
         data=r"E:\ultralytics-main\data.yaml",
-        epochs=150,  # 训练轮数
+        epochs=200,  # 训练轮数
         imgsz=640,  # 保持 640
         batch=-1,
         workers=2,
@@ -30,7 +30,7 @@ def main():
         hsv_s=0.1,  # 饱和度抖动减弱 (默认是 0.7，太夸张了)
         hsv_v=0.1,  # 亮度抖动减弱 (默认是 0.4，导致过曝的元凶)
 
-        mosaic=0.0,
+        mosaic=0.5,
         mixup=0.0,  # 确保关闭图像混合
         degrees=5.0,  # 允许轻微旋转（正负5度）
         translate=0.1,  # 允许轻微平移
@@ -38,7 +38,7 @@ def main():
         fliplr=0.5,  # 允许左右翻转（这个对中药是安全的）
         flipud=0.5,# 允许上下翻转（安全）
 
-        optimizer='auto',  # 轻量化模型推荐的优化器
+        optimizer='auto', 
         patience=50,
         project='herb_detection',  # 训练结果保存的主文件夹名
         name='v8s_ca_focal_eiou_final'  # 本次实验的名称
