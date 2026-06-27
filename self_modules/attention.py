@@ -67,14 +67,13 @@ class C2f_CA(C2f):
     def __init__(self, c1, c2, n=1, shortcut=False, g=1, e=0.5):
         # 初始化父类 C2f
         super().__init__(c1, c2, n, shortcut, g, e)
-        # 在 C2f 的末尾加上你写的 CoordAtt
         self.ca = CoordAtt(c2, c2)
 
     def forward(self, x):
-        # 这里的逻辑和原生 C2f 一样，将特征在 chunk 后喂入 Bottleneck
+        # 将特征在 chunk 后喂入 Bottleneck
         y = list(self.cv1(x).chunk(2, 1))
         y.extend(m(y[-1]) for m in self.m)
         out = self.cv2(torch.cat(y, 1))
 
-        # 核心：在最终输出前，经过你的 Coordinate Attention
+        # 核心：在最终输出前，经过Coordinate Attention
         return self.ca(out)
